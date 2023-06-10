@@ -78,45 +78,41 @@ def plot_time_frequency_domains(t, signal, sampling_rate, title):
     plt.show()
 
 amplitude = 1.0  # Amplitude of the sinusoidal signal
-frequency = 10.0  # Frequency of the sinusoidal signal
+frequency = 10  # Frequency of the sinusoidal signal
 duration = 2.0  # Duration of the signal in seconds
 sampling_rate = 100.0  # Number of samples per second
-window = 'hamming' # Window function for signal sampling (e.g., 'hamming', 'hann', 'blackman')
+window = 'blackman' # Window function for signal sampling (e.g., 'hamming', 'hann', 'blackman')
+
+amplitude2 = 1.0  # Amplitude of the second sinusoidal signal
+frequency2 = 1.479  # Frequency of the second sinusoidal signal
+shift_ratio = 15.0  # Shift ratio in relation to the duration of the signal
+fade_time = 0.5  # Fade time in seconds for the second signal
+frequency_shift = 10.0  # Frequency shift of the second signal in Hz
+
+K = 1 # Amplitude ratio
+t1 = 0.5
+n = 2
+t2 = 0.5
+phi = 0
+
 
 # Generate and plot the sinusoidal signal
 t_sin, signal_sin = generate_signal(amplitude, frequency, duration, sampling_rate)
 plot_time_frequency_domains(t_sin, signal_sin, sampling_rate, 'Sygnał sinusoidalny')
 
-amplitude2_shift = 1.0  # Amplitude of the second sinusoidal signal with time shift
-frequency2_shift = 20.0  # Frequency of the second sinusoidal signal with time shift
-shift_ratio = 0.2  # Shift ratio in relation to the duration of the signal
-fade_time_shift = 0.5  # Fade time in seconds for the time-shifted signal
-
 # Generate and plot the combined signal with time-shifted sinusoids and fading
-t_combined_shift, combined_signal_shift = generate_combined_signal_shift(amplitude, frequency, amplitude2_shift,
-                                                                        frequency2_shift, duration, shift_ratio,
-                                                                        fade_time_shift, sampling_rate)
+t_combined_shift, combined_signal_shift = generate_combined_signal_shift(amplitude, frequency, amplitude2,
+                                                                        frequency2, duration, shift_ratio,
+                                                                        fade_time, sampling_rate)
 plot_time_frequency_domains(t_combined_shift, combined_signal_shift, sampling_rate,
                             'Złożenie 2 sygnałów sinusoidalnych (czasowe przesunięcie)')
 
-amplitude2_freq = 0.8  # Amplitude of the second sinusoidal signal with frequency shift
-frequency2_freq = 5.0  # Frequency of the second sinusoidal signal with frequency shift
-frequency_shift = 15.0  # Frequency shift of the second signal in Hz
-fade_time_freq = 0.7  # Fade time in seconds for the frequency-shifted signal
-
 # Generate and plot the combined signal with frequency-shifted sinusoids and fading
-t_combined_freq, combined_signal_freq = generate_combined_signal_freq(amplitude, frequency, amplitude2_freq,
-                                                                      frequency2_freq, duration, shift_ratio, frequency_shift,
-                                                                      fade_time_freq, sampling_rate)
+t_combined_freq, combined_signal_freq = generate_combined_signal_freq(amplitude, frequency, amplitude2,
+                                                                      frequency2, duration, shift_ratio, frequency_shift,
+                                                                      fade_time, sampling_rate)
 plot_time_frequency_domains(t_combined_freq, combined_signal_freq, sampling_rate,
                             'Złożenie 2 sygnałów sinusoidalnych (czasowe i częstotliwościowe przesunięcie)')
-
-
-K = 1
-t1 = 0.5
-n = 20
-t2 = 0.5
-phi = 0
 
 # Generate and plot the custom signal
 t_custom, signal = generate_custom_signal(amplitude, K, duration, t1, t2, n, frequency, phi, sampling_rate)
